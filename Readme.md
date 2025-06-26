@@ -23,5 +23,8 @@ LangGraph email processor that can scan a text file containing a list of emails,
 
 The chains above are good examples of `stateless` chains that are good with a give specific task but can't make any conditional decisions e.g. what action to take if an email is determined to require escalation
 
+3. Build state graph and assign to a workflow 
+
 # Learnings
 - LLM did an excellent job of accurately extracting relevant fields using the type hints and description parameters declared in the `NoticeEmailExtractor` class definition and prompt. No type conversion logic was necessary.
+- From a LangGraph DAG perspective, node = action that graph can take, edge = controls the direction of flow of data between nodes i.e. tells which node to pass the state to next. In general, all node functions accept the graph state, perform some action, update the graph state, and return the graph state

@@ -1,6 +1,11 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
+import os
+import dotenv
+
+dotenv.load_dotenv()
+
 
 class EscalationCheck(BaseModel):
     needs_escalation: bool = Field(
@@ -25,7 +30,7 @@ escalation_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-escalation_check_model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+escalation_check_model = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
 
 ESCALATION_CHECK_CHAIN = (
     escalation_prompt
